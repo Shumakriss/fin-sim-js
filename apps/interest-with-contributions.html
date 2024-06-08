@@ -1,0 +1,63 @@
+<head>
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+</head>
+
+<label for="principal">Principal:</label>
+<input type="text" id="principal" name="principal" value="10000" oninput="updateChart(this.value)" />
+<br/>
+<br/>
+
+<label for="rate">10yr Average Market Growth Rate:</label>
+<input type="text" id="rate" name="rate" value="0.07" oninput="updateChart(this.value)" />
+<br/>
+<br/>
+
+<label for="contribution">Annual Contribution:</label>
+<input type="text" id="contribution" name="contribution" value="1200" oninput="updateChart(this.value)" />
+<br/>
+<br/>
+
+<br/>
+<br/>
+<br/>
+<div id="tester" style="width:600px;height:250px;"></div>
+
+
+
+<script>
+
+	const years = [];
+	for (let i = 2024; i<2024+10; i++) {
+		years.push(i);
+	}
+
+	function getBalances() {
+		let principal = Number(document.getElementById('principal').value);
+		let rate = Number(document.getElementById('rate').value);
+		let contribution = Number(document.getElementById('contribution').value);
+		let balances = [principal];
+		let balance = principal
+		
+		console.log("Principal: ", principal, ", Rate: ", rate, ", Contribution: ", contribution, ", Balances: ", balances)
+		
+		for (let i = 1; i<years.length; i++) {
+			balance = (balance + contribution) * (1 + rate)
+			balances.push(balance)
+		}
+
+		return balances
+	}
+
+	let init_bals = getBalances()
+
+	TESTER = document.getElementById('tester');
+	let data = [{ x: years, y: init_bals }];
+	Plotly.newPlot( TESTER, data, {margin: { t: 0 } } );
+
+	function updateChart(value) {
+		console.log("Updating chart")
+		data[0]['y'] = getBalances()
+		Plotly.redraw(TESTER); 
+	}
+
+</script>
