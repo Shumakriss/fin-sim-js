@@ -1,0 +1,54 @@
+class Model {
+    
+    static name = "WorkRetire"
+    static desc = "Simulates annual contribution switching to annual deduction with interest growth over lifetime"
+
+    constructor(age,
+                retirement_age,
+                retirement_salary,
+                current_savings,
+                interest_rate, 
+                annual_contribution,
+    ) {
+        this.age = age
+        this.retirement_age = retirement_age
+        this.retirement_salary = retirement_salary
+        this.current_savings = current_savings
+        this.interest_rate = interest_rate
+        this.annual_contribution = annual_contribution
+        this.plot_points = [this.current_savings]
+        this.retirement_years = 0
+    }
+
+    simulate() {
+        let total_savings = this.current_savings
+        let years = this.retirement_age - this.age
+        for (let year = 0; year < years; year++) {
+            total_savings = total_savings * (1 + this.interest_rate) + this.annual_contribution
+            this.plot_points.push(total_savings)
+        }
+        while (total_savings > 0 && (this.age + this.retirement_years) < 150) {
+            total_savings = total_savings * (1 + this.interest_rate) - this.retirement_salary
+            if (total_savings > 0) {
+                this.retirement_years += 1
+                this.plot_points.push(total_savings)
+            }
+        }
+    }
+
+    getDepletionAge() {
+        return this.retirement_age + this.retirement_years
+    }
+
+    getRetirementYears() {
+        return this.retirement_years
+    }
+
+    getPlotPoints() {
+        return this.plot_points
+    }
+
+}
+
+
+module.exports = { Model };
