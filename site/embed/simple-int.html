@@ -14,13 +14,13 @@
 <br/>
 <br/>
 
-<div id="graph" style="width:600px;height:250px;"></div>
+<div id="graph"></div>
 
 <script>
 
     let principal = Number(document.getElementById('principal').value);
     let rate = Number(document.getElementById('rate').value);
-    let years = getDefaultYears()
+    let years = getDefaultYears();
 
     GRAPH = document.getElementById('graph');
     data = initPlot(GRAPH, 

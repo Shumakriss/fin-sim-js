@@ -2,8 +2,11 @@ function initPlot(graph, title, years, balances) {
     let data = [{ x: years, y: balances }];
 	var layout = {
 		title: title,
-		width: 968,
-		height: 500,
+		logo: true,
+		modebar: true,
+		autosize: true,
+		// width: 968,
+		// height: 500,
 		xaxis: { dtick: 5 }
 		};
 	Plotly.newPlot( graph, data, layout);
@@ -12,7 +15,7 @@ function initPlot(graph, title, years, balances) {
 
 function getDefaultYears() {
     let years = [];
-    for (let i = 2024; i<2024+100; i++) {
+    for (let i = 2024; i<2024+50; i++) {
 	    years.push(i);
     }
     return years
