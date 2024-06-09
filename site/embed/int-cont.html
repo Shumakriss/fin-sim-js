@@ -1,0 +1,45 @@
+<head>
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+    <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/graph.js" charset="utf-8"></script>
+    <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/int-cont.js" charset="utf-8"></script>
+</head>
+
+<label for="principal">Principal:</label>
+<input type="text" id="principal" name="principal" value="100" oninput="reloadValues(this.value)" />
+<br/>
+<br/>
+
+<label for="rate">10yr Average Market Growth Rate:</label>
+<input type="text" id="rate" name="rate" value="0.07" oninput="reloadValues(this.value)" />
+<br/>
+<br/>
+
+<label for="contribution">Annual Contribution:</label>
+<input type="text" id="contribution" name="contribution" value="120" oninput="reloadValues(this.value)" />
+<br/>
+<br/>
+
+<div id="graph" style="width:600px;height:250px;"></div>
+
+<script>
+
+    let principal = Number(document.getElementById('principal').value);
+    let rate = Number(document.getElementById('rate').value);
+    let contribution = Number(document.getElementById('contribution').value);
+    let years = getDefaultYears()
+
+    GRAPH = document.getElementById('graph');
+    data = initPlot(GRAPH, 
+        "Interest Growth With Contributions Over Time", 
+        years, 
+        intContBalances(principal, rate, years, contribution));
+
+    function reloadValues() {
+        principal = Number(document.getElementById('principal').value);
+		rate = Number(document.getElementById('rate').value);
+        contribution = Number(document.getElementById('contribution').value);
+        data[0]['y'] = intContBalances(principal, rate, years, contribution);
+		Plotly.redraw(GRAPH); 
+    }
+
+</script>

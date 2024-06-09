@@ -1,4 +1,6 @@
-# fin-sim-js
+# sim-manager
+
+Original project setup trying to write various algorithms in JS and expose them through a central configurator.
 
 ## Notes
 // Age is display-only
