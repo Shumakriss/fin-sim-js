@@ -1,0 +1,55 @@
+<head>
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+    <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/graph.js" charset="utf-8"></script>
+    <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/retirement.js" charset="utf-8"></script>
+</head>
+
+<div id="graph"></div>
+
+<div style="padding-top: 10px;">
+    <label for="principal">Savings ($):</label>
+    <input type="text" id="principal" name="principal" value="1000000" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="rate">Savings Growth Rate (%):</label>
+    <input type="text" id="rate" name="rate" value="1.5" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="withdrawal">Annual Withdrawal ($):</label>
+    <input type="text" id="withdrawal" name="withdrawal" value="60000" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="inflation">Inflation (%):</label>
+    <input type="text" id="inflation" name="inflation" value="3" oninput="reloadValues(this.value)" />
+</div>
+
+
+<script>
+
+    let principal = Number(document.getElementById('principal').value);
+    let rate = Number(document.getElementById('rate').value) / 100;
+    let withdrawal = Number(document.getElementById('withdrawal').value);
+    let inflation = Number(document.getElementById('inflation').value) / 100;
+    let years = getDefaultYears();
+
+    GRAPH = document.getElementById('graph');
+
+    data = initPlot(GRAPH, 
+        "Retirement Balance Over Time",
+        years, 
+        retirementBalances(principal, rate, years, withdrawal, inflation)
+    );
+
+    function reloadValues() {
+        principal = Number(document.getElementById('principal').value);
+		rate = Number(document.getElementById('rate').value) / 100;
+        withdrawal = Number(document.getElementById('withdrawal').value);
+        inflation = Number(document.getElementById('inflation').value) / 100;
+        data[0]['y'] = retirementBalances(principal, rate, years, withdrawal, inflation);
+		Plotly.redraw(GRAPH); 
+    }
+
+</script>

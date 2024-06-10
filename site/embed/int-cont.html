@@ -4,27 +4,27 @@
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/int-cont.js" charset="utf-8"></script>
 </head>
 
-<label for="principal">Principal:</label>
-<input type="text" id="principal" name="principal" value="100" oninput="reloadValues(this.value)" />
-<br/>
-<br/>
-
-<label for="rate">10yr Average Market Growth Rate:</label>
-<input type="text" id="rate" name="rate" value="0.07" oninput="reloadValues(this.value)" />
-<br/>
-<br/>
-
-<label for="contribution">Annual Contribution:</label>
-<input type="text" id="contribution" name="contribution" value="120" oninput="reloadValues(this.value)" />
-<br/>
-<br/>
-
 <div id="graph"></div>
+
+<div style="padding-top: 10px;">
+    <label for="principal">Principal ($):</label>
+    <input type="text" id="principal" name="principal" value="100" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="rate">10yr Average Market Growth Rate (%):</label>
+    <input type="text" id="rate" name="rate" value="7" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="contribution">Annual Contribution ($):</label>
+    <input type="text" id="contribution" name="contribution" value="120" oninput="reloadValues(this.value)" />
+</div>
 
 <script>
 
     let principal = Number(document.getElementById('principal').value);
-    let rate = Number(document.getElementById('rate').value);
+    let rate = Number(document.getElementById('rate').value) / 100;
     let contribution = Number(document.getElementById('contribution').value);
     let years = getDefaultYears();
 
@@ -36,7 +36,7 @@
 
     function reloadValues() {
         principal = Number(document.getElementById('principal').value);
-		rate = Number(document.getElementById('rate').value);
+		rate = Number(document.getElementById('rate').value) / 100;
         contribution = Number(document.getElementById('contribution').value);
         data[0]['y'] = intContBalances(principal, rate, years, contribution);
 		Plotly.redraw(GRAPH); 

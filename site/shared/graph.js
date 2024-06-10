@@ -5,9 +5,12 @@ function initPlot(graph, title, years, balances) {
 		logo: true,
 		modebar: true,
 		autosize: true,
-		// width: 968,
-		// height: 500,
-		xaxis: { dtick: 5 }
+		xaxis: { dtick: 5 },
+		yaxis: {
+			autorangeoptions: {
+				minallowed: 0
+			}
+		}
 		};
 	Plotly.newPlot( graph, data, layout);
     return data
