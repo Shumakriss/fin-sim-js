@@ -4,12 +4,10 @@
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/cont-retire.js" charset="utf-8"></script>
 </head>
 
-<div id="graph"></div>
-
 
 <div style="padding-top: 10px;">
     <label for="principal">Principal ($):</label>
-    <input type="text" id="principal" name="principal" value="30000" oninput="reloadValues(this.value)" />
+    <input type="text" id="principal" name="principal" value="500000" oninput="reloadValues(this.value)" />
 </div>
 
 <div style="padding-top: 10px;">
@@ -24,7 +22,7 @@
 
 <div style="padding-top: 10px;">
     <label for="withdrawal">Annual Withdrawal ($):</label>
-    <input type="text" id="withdrawal" name="withdrawal" value="60000" oninput="reloadValues(this.value)" />
+    <input type="text" id="withdrawal" name="withdrawal" value="80000" oninput="reloadValues(this.value)" />
 </div>
 
 <div style="padding-top: 10px;">
@@ -34,18 +32,25 @@
 
 <div style="padding-top: 10px;">
     <label for="contribution">Annual Contribution ($):</label>
-    <input type="text" id="contribution" name="contribution" value="1200" oninput="reloadValues(this.value)" />
+    <input type="text" id="contribution" name="contribution" value="6000" oninput="reloadValues(this.value)" />
 </div>
 
 <div style="padding-top: 10px;">
     <label for="retirementYear">Years Until Retirement:</label>
-    <input type="text" id="retirementYear" name="retirementYear" value="30" oninput="reloadValues(this.value)" />
+    <input type="text" id="retirementYear" name="retirementYear" value="10" oninput="reloadValues(this.value)" />
 </div>
 
 <div style="padding-top: 10px;">
     <label for="socialSecurity">Annual Social Security ($):</label>
-    <input type="text" id="socialSecurity" name="socialSecurity" value="16500" oninput="reloadValues(this.value)" />
+    <input type="text" id="socialSecurity" name="socialSecurity" value="23000" oninput="reloadValues(this.value)" />
 </div>
+
+<div style="padding-top: 10px;">
+    <label for="startYear">Starting Year/Age (e.g. "2024" or "35"):</label>
+    <input type="text" id="startYear" name="startYear" value="2024" oninput="reloadValues(this.value)" />
+</div>
+
+<div id="graph"></div>
 
 <script>
 
@@ -57,7 +62,8 @@
     let retirementYear = Number(document.getElementById('retirementYear').value);
     let inflation = Number(document.getElementById('inflation').value) / 100;
     let socialSecurity = Number(document.getElementById('socialSecurity').value);
-    let years = getYears(60);
+    let startYear = Number(document.getElementById('startYear').value);
+    let years = getYears(75, startYear);
 
     GRAPH = document.getElementById('graph');
 
@@ -86,7 +92,9 @@
         retirementYear = Number(document.getElementById('retirementYear').value);
         inflation = Number(document.getElementById('inflation').value) / 100;
         socialSecurity = Number(document.getElementById('socialSecurity').value);
+        startYear = Number(document.getElementById('startYear').value);
         
+        data[0]['x'] = getYears(50, startYear);
         data[0]['y'] = contToRetireBalances(principal, 
             years, 
             savingsGrowthRate, 
@@ -97,6 +105,7 @@
             inflation,
             socialSecurity
         );
+
 		Plotly.redraw(GRAPH);
     }
 

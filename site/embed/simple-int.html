@@ -4,8 +4,6 @@
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/simple-int.js" charset="utf-8"></script>
 </head>
 
-<div id="graph"></div>
-
 
 <div style="padding-top: 10px;">
     <label for="principal">Principal ($):</label>
@@ -17,12 +15,20 @@
     <input type="text" id="rate" name="rate" value="7" oninput="reloadValues(this.value)" />
 </div>
 
+<div style="padding-top: 10px;">
+    <label for="startYear">Starting Year/Age (e.g. "2024" or "35"):</label>
+    <input type="text" id="startYear" name="startYear" value="2024" oninput="reloadValues(this.value)" />
+</div>
+
+<div id="graph"></div>
+
 
 <script>
 
     let principal = Number(document.getElementById('principal').value);
     let rate = Number(document.getElementById('rate').value) / 100;
-    let years = getYears(50);
+    let startYear = Number(document.getElementById('startYear').value);
+    let years = getYears(75, startYear);
 
     GRAPH = document.getElementById('graph');
 
@@ -35,7 +41,11 @@
     function reloadValues() {
         principal = Number(document.getElementById('principal').value);
 		rate = Number(document.getElementById('rate').value) / 100;
+        startYear = Number(document.getElementById('startYear').value);
+
+        data[0]['x'] = getYears(50, startYear);
         data[0]['y'] = simpleInterestBalances(principal, rate, years);
+        
 		Plotly.redraw(GRAPH); 
     }
 

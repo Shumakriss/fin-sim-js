@@ -4,7 +4,6 @@
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/retirement.js" charset="utf-8"></script>
 </head>
 
-<div id="graph"></div>
 
 <div style="padding-top: 10px;">
     <label for="principal">Savings ($):</label>
@@ -31,6 +30,12 @@
     <input type="text" id="socialSecurity" name="socialSecurity" value="16500" oninput="reloadValues(this.value)" />
 </div>
 
+<div style="padding-top: 10px;">
+    <label for="startYear">Starting Year/Age (e.g. "2024" or "35"):</label>
+    <input type="text" id="startYear" name="startYear" value="2024" oninput="reloadValues(this.value)" />
+</div>
+
+<div id="graph"></div>
 
 <script>
 
@@ -39,7 +44,8 @@
     let withdrawal = Number(document.getElementById('withdrawal').value);
     let inflation = Number(document.getElementById('inflation').value) / 100;
     let socialSecurity = Number(document.getElementById('socialSecurity').value);
-    let years = getYears(50);
+    let startYear = Number(document.getElementById('startYear').value);
+    let years = getYears(50, startYear);
 
     GRAPH = document.getElementById('graph');
 
@@ -55,7 +61,11 @@
         withdrawal = Number(document.getElementById('withdrawal').value);
         inflation = Number(document.getElementById('inflation').value) / 100;
         socialSecurity = Number(document.getElementById('socialSecurity').value);
+        startYear = Number(document.getElementById('startYear').value);
+
+        data[0]['x'] = getYears(50, startYear);
         data[0]['y'] = retirementBalances(principal, rate, years, withdrawal, inflation, socialSecurity);
+
 		Plotly.redraw(GRAPH); 
     }
 
