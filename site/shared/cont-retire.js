@@ -5,7 +5,8 @@ function contToRetireBalances(principal,
 								contribution,
 								withdrawal,
 								retirementYear,
-								inflation) {
+								inflation,
+								socialSecurity) {
 	let balances = [principal];
 	let balance = principal;
 
@@ -18,6 +19,7 @@ function contToRetireBalances(principal,
 				", Contribution: ", contribution,
 				", Withdrawal: ", withdrawal,
 				", Inflation Rate: ", inflation,
+				", Annual Social Security: ", socialSecurity
 			)
 	
 	for (let i = 1; i<retirementYear+1; i++) {
@@ -28,7 +30,7 @@ function contToRetireBalances(principal,
 	console.log("Calculating retirement balances. Savings: ", balance, ", years remaining: ", (years - retirementYear))
 
 	for (let i = 1; i<(years.length - retirementYear); i++) {
-		balance = (balance - withdrawal) * (1 + retirementGrowthRate)
+		balance = (balance - (withdrawal - socialSecurity)) * (1 + retirementGrowthRate)
 		withdrawal = withdrawal * (1 + inflation);
 		console.log("Balance: ", balance, ", Inf adj withdrawal: ", withdrawal)
 		balances.push(balance)
