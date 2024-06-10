@@ -13,7 +13,7 @@
 </div>
 
 <div style="padding-top: 10px;">
-    <label for="rate">10yr Average Market Growth Rate (%):</label>
+    <label for="rate">Investment Growth Rate (%):</label>
     <input type="text" id="rate" name="rate" value="7" oninput="reloadValues(this.value)" />
 </div>
 
@@ -22,7 +22,7 @@
 
     let principal = Number(document.getElementById('principal').value);
     let rate = Number(document.getElementById('rate').value) / 100;
-    let years = getDefaultYears();
+    let years = getYears(50);
 
     GRAPH = document.getElementById('graph');
 

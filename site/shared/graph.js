@@ -16,9 +16,10 @@ function initPlot(graph, title, years, balances) {
     return data
 }
 
-function getDefaultYears() {
+function getYears(numberOfYears) {
     let years = [];
-    for (let i = 2024; i<2024+50; i++) {
+	let currentYear = new Date().getFullYear();
+    for (let i = currentYear; i<currentYear+numberOfYears; i++) {
 	    years.push(i);
     }
     return years

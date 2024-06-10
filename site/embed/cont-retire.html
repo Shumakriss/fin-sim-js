@@ -1,0 +1,94 @@
+<head>
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+    <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/graph.js" charset="utf-8"></script>
+    <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/cont-retire.js" charset="utf-8"></script>
+</head>
+
+<div id="graph"></div>
+
+
+<div style="padding-top: 10px;">
+    <label for="principal">Principal ($):</label>
+    <input type="text" id="principal" name="principal" value="30000" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="savingsGrowthRate">Savings Growth Rate (%):</label>
+    <input type="text" id="savingsGrowthRate" name="savingsGrowthRate" value="7" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="retirementGrowthRate">Retirement Growth Rate (%):</label>
+    <input type="text" id="retirementGrowthRate" name="retirementGrowthRate" value="1.5" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="withdrawal">Annual Withdrawal ($):</label>
+    <input type="text" id="withdrawal" name="withdrawal" value="60000" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="inflation">Inflation (%):</label>
+    <input type="text" id="inflation" name="inflation" value="3" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="contribution">Annual Contribution ($):</label>
+    <input type="text" id="contribution" name="contribution" value="1200" oninput="reloadValues(this.value)" />
+</div>
+
+<div style="padding-top: 10px;">
+    <label for="retirementYear">Years Until Retirement:</label>
+    <input type="text" id="retirementYear" name="retirementYear" value="30" oninput="reloadValues(this.value)" />
+</div>
+
+<script>
+
+    let principal = Number(document.getElementById('principal').value);
+    let savingsGrowthRate = Number(document.getElementById('savingsGrowthRate').value) / 100;
+    let retirementGrowthRate = Number(document.getElementById('retirementGrowthRate').value) / 100;
+    let contribution = Number(document.getElementById('contribution').value);
+    let withdrawal = Number(document.getElementById('withdrawal').value);
+    let retirementYear = Number(document.getElementById('retirementYear').value);
+    let inflation = Number(document.getElementById('inflation').value) / 100;
+    let years = getYears(60);
+
+    GRAPH = document.getElementById('graph');
+
+    data = initPlot(GRAPH, 
+        "Contributing To Retirement Then Retiring", 
+        years, 
+        contToRetireBalances(principal, 
+            years, 
+            savingsGrowthRate, 
+            retirementGrowthRate,
+            contribution,
+            withdrawal,
+            retirementYear,
+            inflation
+        )
+    );
+
+    function reloadValues() {
+        
+        principal = Number(document.getElementById('principal').value);
+        savingsGrowthRate = Number(document.getElementById('savingsGrowthRate').value) / 100;
+        retirementGrowthRate = Number(document.getElementById('retirementGrowthRate').value) / 100;
+        contribution = Number(document.getElementById('contribution').value);
+        withdrawal = Number(document.getElementById('withdrawal').value);
+        retirementYear = Number(document.getElementById('retirementYear').value);
+        inflation = Number(document.getElementById('inflation').value) / 100;
+        
+        data[0]['y'] = contToRetireBalances(principal, 
+            years, 
+            savingsGrowthRate, 
+            retirementGrowthRate,
+            contribution,
+            withdrawal,
+            retirementYear,
+            inflation
+        );
+		Plotly.redraw(GRAPH);
+    }
+
+</script>
