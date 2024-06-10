@@ -26,6 +26,11 @@
     <input type="text" id="inflation" name="inflation" value="3" oninput="reloadValues(this.value)" />
 </div>
 
+<div style="padding-top: 10px;">
+    <label for="socialSecurity">Annual Social Security ($):</label>
+    <input type="text" id="socialSecurity" name="socialSecurity" value="16500" oninput="reloadValues(this.value)" />
+</div>
+
 
 <script>
 
@@ -33,6 +38,7 @@
     let rate = Number(document.getElementById('rate').value) / 100;
     let withdrawal = Number(document.getElementById('withdrawal').value);
     let inflation = Number(document.getElementById('inflation').value) / 100;
+    let socialSecurity = Number(document.getElementById('socialSecurity').value);
     let years = getYears(50);
 
     GRAPH = document.getElementById('graph');
@@ -40,7 +46,7 @@
     data = initPlot(GRAPH, 
         "Retirement Balance Over Time",
         years, 
-        retirementBalances(principal, rate, years, withdrawal, inflation)
+        retirementBalances(principal, rate, years, withdrawal, inflation, socialSecurity)
     );
 
     function reloadValues() {
@@ -48,7 +54,8 @@
 		rate = Number(document.getElementById('rate').value) / 100;
         withdrawal = Number(document.getElementById('withdrawal').value);
         inflation = Number(document.getElementById('inflation').value) / 100;
-        data[0]['y'] = retirementBalances(principal, rate, years, withdrawal, inflation);
+        socialSecurity = Number(document.getElementById('socialSecurity').value);
+        data[0]['y'] = retirementBalances(principal, rate, years, withdrawal, inflation, socialSecurity);
 		Plotly.redraw(GRAPH); 
     }
 
