@@ -33,7 +33,8 @@
     let rate = Number(document.getElementById('rate').value) / 100;
     let contribution = Number(document.getElementById('contribution').value);
     let startYear = Number(document.getElementById('startYear').value);
-    let years = getYears(75, startYear);
+    let plotYears = 75
+    let years = getYears(plotYears, startYear);
 
     GRAPH = document.getElementById('graph');
     data = initPlot(GRAPH, 
@@ -47,7 +48,7 @@
         contribution = Number(document.getElementById('contribution').value);
         startYear = Number(document.getElementById('startYear').value);
 
-        data[0]['x'] = getYears(50, startYear);
+        data[0]['x'] = getYears(plotYears, startYear);
         data[0]['y'] = intContBalances(principal, rate, years, contribution);
 
 		Plotly.redraw(GRAPH); 

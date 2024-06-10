@@ -63,7 +63,8 @@
     let inflation = Number(document.getElementById('inflation').value) / 100;
     let socialSecurity = Number(document.getElementById('socialSecurity').value);
     let startYear = Number(document.getElementById('startYear').value);
-    let years = getYears(75, startYear);
+    let plotYears = 75
+    let years = getYears(plotYears, startYear);
 
     GRAPH = document.getElementById('graph');
 
@@ -94,7 +95,7 @@
         socialSecurity = Number(document.getElementById('socialSecurity').value);
         startYear = Number(document.getElementById('startYear').value);
         
-        data[0]['x'] = getYears(50, startYear);
+        data[0]['x'] = getYears(plotYears, startYear);
         data[0]['y'] = contToRetireBalances(principal, 
             years, 
             savingsGrowthRate, 

@@ -28,7 +28,8 @@
     let principal = Number(document.getElementById('principal').value);
     let rate = Number(document.getElementById('rate').value) / 100;
     let startYear = Number(document.getElementById('startYear').value);
-    let years = getYears(75, startYear);
+    let plotYears = 75
+    let years = getYears(plotYears, startYear);
 
     GRAPH = document.getElementById('graph');
 
@@ -43,7 +44,7 @@
 		rate = Number(document.getElementById('rate').value) / 100;
         startYear = Number(document.getElementById('startYear').value);
 
-        data[0]['x'] = getYears(50, startYear);
+        data[0]['x'] = getYears(plotYears, startYear);
         data[0]['y'] = simpleInterestBalances(principal, rate, years);
         
 		Plotly.redraw(GRAPH); 
