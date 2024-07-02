@@ -1,9 +1,12 @@
+<!DOCTYPE html>
+<html>
 <head>
     <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/graph.js" charset="utf-8"></script>
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/cont-retire.js" charset="utf-8"></script>
 </head>
 
+<body>
 
 <div style="padding-top: 10px;">
     <label for="principal">Principal ($):</label>
@@ -68,12 +71,12 @@
 
     GRAPH = document.getElementById('graph');
 
-    data = initPlot(GRAPH, 
-        "Contributing To Retirement Then Retiring", 
-        years, 
-        contToRetireBalances(principal, 
-            years, 
-            savingsGrowthRate, 
+    data = initPlot(GRAPH,
+        "Contributing To Retirement Then Retiring",
+        years,
+        contToRetireBalances(principal,
+            years,
+            savingsGrowthRate,
             retirementGrowthRate,
             contribution,
             withdrawal,
@@ -84,7 +87,7 @@
     );
 
     function reloadValues() {
-        
+
         principal = Number(document.getElementById('principal').value);
         savingsGrowthRate = Number(document.getElementById('savingsGrowthRate').value) / 100;
         retirementGrowthRate = Number(document.getElementById('retirementGrowthRate').value) / 100;
@@ -94,11 +97,11 @@
         inflation = Number(document.getElementById('inflation').value) / 100;
         socialSecurity = Number(document.getElementById('socialSecurity').value);
         startYear = Number(document.getElementById('startYear').value);
-        
+
         data[0]['x'] = getYears(plotYears, startYear);
-        data[0]['y'] = contToRetireBalances(principal, 
-            years, 
-            savingsGrowthRate, 
+        data[0]['y'] = contToRetireBalances(principal,
+            years,
+            savingsGrowthRate,
             retirementGrowthRate,
             contribution,
             withdrawal,
@@ -111,3 +114,5 @@
     }
 
 </script>
+</body>
+</html>

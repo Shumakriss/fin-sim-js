@@ -1,8 +1,12 @@
+<!DOCTYPE html>
+
+<html>
 <head>
     <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/graph.js" charset="utf-8"></script>
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/int-cont.js" charset="utf-8"></script>
 </head>
+<body>
 
 
 <div style="padding-top: 10px;">
@@ -37,9 +41,9 @@
     let years = getYears(plotYears, startYear);
 
     GRAPH = document.getElementById('graph');
-    data = initPlot(GRAPH, 
-        "Interest Growth With Contributions Over Time", 
-        years, 
+    data = initPlot(GRAPH,
+        "Interest Growth With Contributions Over Time",
+        years,
         intContBalances(principal, rate, years, contribution));
 
     function reloadValues() {
@@ -51,7 +55,9 @@
         data[0]['x'] = getYears(plotYears, startYear);
         data[0]['y'] = intContBalances(principal, rate, years, contribution);
 
-		Plotly.redraw(GRAPH); 
+		Plotly.redraw(GRAPH);
     }
 
 </script>
+</body>
+</html>

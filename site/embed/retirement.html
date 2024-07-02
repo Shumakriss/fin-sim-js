@@ -1,8 +1,13 @@
+<!DOCTYPE html>
+
+<html>
 <head>
     <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/graph.js" charset="utf-8"></script>
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/retirement.js" charset="utf-8"></script>
 </head>
+
+<body>
 
 
 <div style="padding-top: 10px;">
@@ -47,13 +52,13 @@
     let startYear = Number(document.getElementById('startYear').value);
     let plotYears = 50
     let years = getYears(plotYears, startYear);
-    
+
 
     GRAPH = document.getElementById('graph');
 
-    data = initPlot(GRAPH, 
+    data = initPlot(GRAPH,
         "Retirement Balance Over Time",
-        years, 
+        years,
         retirementBalances(principal, rate, years, withdrawal, inflation, socialSecurity)
     );
 
@@ -68,7 +73,10 @@
         data[0]['x'] = getYears(plotYears, startYear);
         data[0]['y'] = retirementBalances(principal, rate, years, withdrawal, inflation, socialSecurity);
 
-		Plotly.redraw(GRAPH); 
+		Plotly.redraw(GRAPH);
     }
 
 </script>
+</body>
+
+</html>

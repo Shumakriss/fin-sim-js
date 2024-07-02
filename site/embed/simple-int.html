@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <head>
     <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
     <script src="https://maker-consulting-misc-web.s3.amazonaws.com/shared/graph.js" charset="utf-8"></script>
@@ -5,23 +7,24 @@
 </head>
 
 
+<body>
+
 <div style="padding-top: 10px;">
     <label for="principal">Principal ($):</label>
-    <input type="text" id="principal" name="principal" value="100" oninput="reloadValues(this.value)" />
+    <input type="text" id="principal" name="principal" value="100" oninput="reloadValues(this.value)"/>
 </div>
 
 <div style="padding-top: 10px;">
     <label for="rate">Investment Growth Rate (%):</label>
-    <input type="text" id="rate" name="rate" value="7" oninput="reloadValues(this.value)" />
+    <input type="text" id="rate" name="rate" value="7" oninput="reloadValues(this.value)"/>
 </div>
 
 <div style="padding-top: 10px;">
     <label for="startYear">Starting Year/Age (e.g. "2024" or "35"):</label>
-    <input type="text" id="startYear" name="startYear" value="2024" oninput="reloadValues(this.value)" />
+    <input type="text" id="startYear" name="startYear" value="2024" oninput="reloadValues(this.value)"/>
 </div>
 
 <div id="graph"></div>
-
 
 <script>
 
@@ -33,21 +36,23 @@
 
     GRAPH = document.getElementById('graph');
 
-    data = initPlot(GRAPH, 
-        "Simple Interest Growth Over Time", 
-        years, 
+    data = initPlot(GRAPH,
+        "Simple Interest Growth Over Time",
+        years,
         simpleInterestBalances(principal, rate, years)
     );
 
     function reloadValues() {
         principal = Number(document.getElementById('principal').value);
-		rate = Number(document.getElementById('rate').value) / 100;
+        rate = Number(document.getElementById('rate').value) / 100;
         startYear = Number(document.getElementById('startYear').value);
 
         data[0]['x'] = getYears(plotYears, startYear);
         data[0]['y'] = simpleInterestBalances(principal, rate, years);
-        
-		Plotly.redraw(GRAPH); 
+
+        Plotly.redraw(GRAPH);
     }
 
 </script>
+</body>
+</html>
