@@ -1,6 +1,11 @@
+<!DOCTYPE html>
+
+<html>
 <head>
     <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
 </head>
+
+<body>
 
 <label for="principal">Principal:</label>
 <input type="text" id="principal" name="principal" value="100" oninput="updateChart(this.value)" />
@@ -37,9 +42,9 @@
 		let contribution = Number(document.getElementById('contribution').value);
 		let balances = [principal];
 		let balance = principal
-		
+
 		console.log("Principal: ", principal, ", Rate: ", rate, ", Contribution: ", contribution, ", Balances: ", balances)
-		
+
 		for (let i = 1; i<years.length; i++) {
 			balance = (balance + contribution) * (1 + rate)
 			balances.push(balance)
@@ -64,7 +69,9 @@
 	function updateChart(value) {
 		console.log("Updating chart")
 		data[0]['y'] = getBalances()
-		Plotly.redraw(TESTER); 
+		Plotly.redraw(TESTER);
 	}
 
 </script>
+</body>
+</html>
